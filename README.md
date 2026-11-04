@@ -1,155 +1,52 @@
-# Projeto Cardio — Regressão Logística
+# Cardio — baseline com Regressão Logística
+**João Vitor Marinho · Estudo acadêmico de Machine Learning**
 
-Este projeto foi desenvolvido com o objetivo de construir um modelo preditivo capaz de estimar a presença de **doença cardiovascular** a partir de variáveis clínicas e comportamentais dos pacientes.
+Classificação do alvo `cardio_disease` a partir de atributos clínicos e comportamentais. O projeto demonstra análise exploratória, criação de IMC, preparação dos dados e interpretação de um baseline.
 
-O trabalho foi realizado em **Python**, utilizando técnicas de **análise exploratória de dados**, **engenharia de atributos** e **machine learning** com **Regressão Logística**.
+## Método
 
----
+O notebook remove registros fora dos intervalos de altura, peso e IMC definidos no estudo, separa treino/teste de forma estratificada (75%/25%, `random_state=42`) e ajusta `StandardScaler` e Regressão Logística em um pipeline. Os intervalos de limpeza são escolhas do exercício e precisam ser justificados antes de qualquer aplicação externa.
 
-## Objetivo
+## Resultados da execução original
 
-Desenvolver um modelo de classificação para prever a variável alvo `cardio_disease`, identificando quais fatores apresentam maior relação com o risco de doença cardiovascular.
+| Métrica | Valor aproximado |
+| --- | ---: |
+| Acurácia | 0,628 |
+| Precisão | 0,635 |
+| Recall | 0,611 |
+| F1 | 0,623 |
+| ROC-AUC | 0,695 |
 
----
+Os valores documentam o experimento salvo; o notebook não foi reexecutado nesta revisão. Eles indicam capacidade discriminativa limitada e precisam ser comparados com um baseline explícito.
 
-## Base de dados
+## Limitações e próximos passos
 
-A base contém informações de pacientes, incluindo variáveis como:
+- Documentar a fonte, o processo de amostragem e o significado do alvo.
+- Auditar duplicatas e atributos disponíveis no momento da previsão.
+- Usar validação para selecionar modelos e limiares, preservando um teste final.
+- Avaliar calibração, erros por grupo e intervalos de incerteza.
+- Tratar associações observadas como associações, sem inferir efeito causal.
 
-- idade  
-- sexo  
-- altura  
-- peso  
-- colesterol  
-- glicose  
-- tabagismo  
-- consumo de álcool  
-- atividade física  
+O projeto é um estudo de aprendizado e não possui validação para diagnóstico ou uso clínico.
 
-Além das variáveis originais, foi criada a variável **IMC (BMI)**, calculada a partir do peso e da altura.
+## Arquivos e dados
 
----
+- [Notebook](./Exercicio%20ebac%20cardio..ipynb)
+- `requirements.txt`: dependências para preparar o ambiente.
 
-## Etapas do projeto
+O CSV `CARDIO_BASE.csv` não está neste repositório. Utilize a base original do exercício, respeitando seus termos de uso. A fonte e a licença precisam ser documentadas para permitir reprodução por terceiros.
 
-### 1. Carregamento e tratamento dos dados
-- Importação da base
-- Conversão de tipos numéricos
-- Criação da variável `height_m`
-- Criação da variável `bmi`
-- Limpeza de dados inválidos ou ausentes
-
-### 2. Análise exploratória
-Foram realizadas análises para entender o comportamento da variável alvo em relação a fatores importantes, como:
-- colesterol
-- glicose
-- atividade física
-- idade
-
-### 3. Correlação entre variáveis
-Foi construída uma matriz de correlação para identificar relações entre os atributos numéricos e o desfecho `cardio_disease`.
-
-### 4. Preparação para modelagem
-- Seleção das variáveis preditoras
-- Separação em treino e teste
-- Padronização dos dados com `StandardScaler`
-
-### 5. Treinamento do modelo
-Foi utilizado o algoritmo de **Regressão Logística**, implementado com `Pipeline` do scikit-learn.
-
-### 6. Avaliação do modelo
-As métricas utilizadas para avaliar o desempenho foram:
-- **Accuracy**
-- **Precision**
-- **Recall**
-- **F1-score**
-- **ROC AUC**
-
-### 7. Interpretação dos coeficientes
-Os coeficientes do modelo foram analisados para entender quais variáveis mais influenciam a previsão da doença cardiovascular.
-
----
-
-## Principais insights
-
-A análise exploratória mostrou que:
-- níveis mais altos de **colesterol** estão associados a maior taxa de doença cardiovascular;
-- aumento da **glicose** também acompanha aumento do risco;
-- indivíduos **fisicamente ativos** tendem a apresentar menor proporção de doença;
-- pacientes com doença cardiovascular tendem a ser, em média, **mais velhos**.
-
-Na interpretação do modelo, variáveis como **peso**, **idade** e **colesterol** apareceram entre as mais relevantes para aumentar a chance do desfecho positivo.
-
----
-
-## Resultados do modelo
-
-O modelo apresentou desempenho intermediário, com métricas próximas de:
-- **Acurácia:** 0.628
-- **Precisão:** 0.635
-- **Recall:** 0.611
-- **F1-score:** 0.623
-- **ROC AUC:** 0.695
-
-Esses resultados indicam que o modelo consegue capturar parte importante do padrão dos dados, sendo uma boa solução inicial para o problema, embora ainda haja espaço para melhoria com ajustes e testes de outros algoritmos.
-
----
-
-## Tecnologias utilizadas
-
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Scikit-learn
-- Jupyter Notebook
-
----
-
-## Estrutura do projeto
+## Como preparar a execução
 
 ```bash
-Projeto-Cardio/
-│
-├── Exercicio ebac cardio..ipynb
-├── README.md
-└── base_de_dados.csv
+git clone https://github.com/jvickz/Projeto-Cardio.git
+cd Projeto-Cardio
+python -m pip install -r requirements.txt
+python -m jupyter notebook
 ```
 
----
+Coloque a base em `data/CARDIO_BASE.csv` ou defina `CARDIO_DATA_PATH` com o caminho do arquivo. Abra o notebook a partir da raiz do repositório. O CSV é lido com separador `;`.
 
-## Como executar
+As versões das dependências ainda não estão fixadas; saídas e gráficos podem variar entre ambientes.
 
-1. Clone este repositório:
-```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-```
 
-2. Acesse a pasta do projeto:
-```bash
-cd seu-repositorio
-```
-
-3. Instale as dependências:
-```bash
-pip install pandas numpy matplotlib scikit-learn jupyter
-```
-
-4. Abra o notebook:
-```bash
-jupyter notebook
-```
-
----
-
-## Conclusão
-
-Este projeto demonstra a aplicação de um fluxo completo de ciência de dados para um problema de saúde, desde o tratamento da base até a interpretação dos resultados do modelo.
-
-Além de treinar um classificador, o estudo também permitiu identificar fatores relevantes associados ao risco cardiovascular, mostrando como modelos estatísticos podem apoiar análises clínicas e tomadas de decisão orientadas por dados.
-
----
-
-## Autor
-
-Desenvolvido por **jv** como parte dos estudos práticos em **Ciência de Dados / Machine Learning**.
